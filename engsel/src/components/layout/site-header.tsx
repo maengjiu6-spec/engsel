@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useSyncExternalStore } from "react";
-import { features } from "@/lib/features";
+import { navFeatures } from "@/lib/features";
 import {
   categoryFromPath,
   readActiveCategoryServerSnapshot,
@@ -57,7 +57,7 @@ export function SiteHeader() {
           <Link href="/" className={pathname === "/" ? "font-medium text-stone-900" : "text-stone-600 hover:text-stone-900"}>
             홈
           </Link>
-          {features.map((feature) => {
+          {navFeatures.map((feature) => {
             const active = pathname === feature.href || pathname.startsWith(`${feature.href}/`);
             const href = feature.href === "/passage" && categoryId ? `/passage?category=${categoryId}` : feature.href;
             if (!unlocked) {

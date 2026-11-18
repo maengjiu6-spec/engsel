@@ -1,6 +1,10 @@
-import { FeatureScreen } from "@/components/layout/feature-screen";
-import { getFeature } from "@/lib/features";
+import type { Metadata } from "next";
+import { LegacyStudy } from "@/components/study/legacy-study";
+
+export const metadata: Metadata = {
+  title: "학습 노트 · EngSel 엥셀",
+};
 
 export default function NotesPage() {
-  return <FeatureScreen feature={getFeature("/notes")} />;
+  return <LegacyStudy hash="/notes" title="학습 노트" />;
 }

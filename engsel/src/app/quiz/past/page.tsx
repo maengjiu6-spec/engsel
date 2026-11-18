@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
-import { QuizPanel } from "@/components/quiz/quiz-panel";
-import { getQuizTab } from "@/lib/quiz/tabs";
+import { LegacyStudy } from "@/components/study/legacy-study";
 
 export const metadata: Metadata = {
-  title: "기출 · 문제 풀이 · EngSel 엥셀",
+  title: "문제 풀이 · EngSel 엥셀",
 };
 
 export default function PastExamPage() {
-  return <QuizPanel tab={getQuizTab("/quiz/past")} />;
+  return <LegacyStudy hash="/quiz" title="문제 풀이" />;
 }

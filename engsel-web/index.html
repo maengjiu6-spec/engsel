@@ -7,20 +7,59 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/app.css?v=25">
+    <link rel="stylesheet" href="css/app.css?v=68">
   </head>
   <body>
     <header id="site-header"></header>
     <main id="view"></main>
     <p id="toast" class="toast" role="status" hidden></p>
     <div id="select-toolbar" class="select-toolbar" role="toolbar" aria-label="선택 도구" hidden>
-      <button type="button" data-action="add-highlight">형광펜</button>
-      <button type="button" data-action="add-memo">메모 추가</button>
+      <div class="toolbar-pane" data-pane="actions">
+        <button type="button" data-action="add-highlight">형광펜</button>
+        <button type="button" data-action="add-memo">메모 추가</button>
+        <button type="button" data-action="add-wordbook" hidden>단어장에 추가</button>
+      </div>
+      <div class="toolbar-pane" data-pane="colors" hidden>
+        <div class="pen-swatches" role="radiogroup" aria-label="형광펜 색">
+          <button type="button" role="radio" data-action="pick-pen" data-color="yellow" aria-checked="false" aria-label="노랑"></button>
+          <button type="button" role="radio" data-action="pick-pen" data-color="lime" aria-checked="false" aria-label="연두"></button>
+          <button type="button" role="radio" data-action="pick-pen" data-color="sky" aria-checked="false" aria-label="하늘"></button>
+          <button type="button" role="radio" data-action="pick-pen" data-color="pink" aria-checked="false" aria-label="핑크"></button>
+          <button type="button" role="radio" data-action="pick-pen" data-color="purple" aria-checked="false" aria-label="보라"></button>
+        </div>
+        <button type="button" class="pen-clear" data-action="clear-pen" aria-label="형광펜 지우기" hidden><span aria-hidden="true">×</span></button>
+      </div>
     </div>
-    <form id="memo-popover" class="memo-popover" hidden>
+    <form id="memo-popover" class="memo-popover" novalidate hidden>
       <label for="memo-input">메모
         <textarea id="memo-input" rows="3" placeholder="이 부분에 메모를 적으세요."></textarea>
       </label>
+      <div id="memo-styles" class="memo-styles">
+        <p>강조</p>
+        <div class="memo-style-options" role="radiogroup" aria-label="강조 방식">
+          <button type="button" role="radio" data-style="box" aria-checked="true">
+            <span class="style-sample is-box" aria-hidden="true"></span>
+            네모박스
+          </button>
+          <button type="button" role="radio" data-style="solid" aria-checked="false">
+            <span class="style-sample is-solid" aria-hidden="true"></span>
+            실선
+          </button>
+          <button type="button" role="radio" data-style="wave" aria-checked="false">
+            <span class="style-sample is-wave" aria-hidden="true"></span>
+            물결
+          </button>
+        </div>
+        <div id="emphasis-colors" class="emphasis-colors">
+          <div class="emphasis-swatches" role="radiogroup" aria-label="강조 색">
+            <button type="button" role="radio" data-hex="#FFE066" aria-checked="true" aria-label="노랑"></button>
+            <button type="button" role="radio" data-hex="#FF6B6B" aria-checked="false" aria-label="빨강"></button>
+            <button type="button" role="radio" data-hex="#22C55E" aria-checked="false" aria-label="초록"></button>
+            <button type="button" role="radio" data-hex="#3B82F6" aria-checked="false" aria-label="파랑"></button>
+            <button type="button" role="radio" data-hex="#A855F7" aria-checked="false" aria-label="보라"></button>
+          </div>
+        </div>
+      </div>
       <div class="list-actions">
         <button type="submit" class="pill">저장</button>
         <button type="button" class="ghost" data-action="close-memo">닫기</button>
@@ -54,7 +93,7 @@
       </section>
       <button type="button" id="assistant-toggle" class="assistant-button" aria-expanded="false" aria-controls="assistant-panel">AI</button>
     </div>
-    <script src="js/geminiService.js?v=1"></script>
-    <script src="js/app.js?v=33"></script>
+    <script src="js/geminiService.js?v=4"></script>
+    <script src="js/app.js?v=95"></script>
   </body>
 </html>

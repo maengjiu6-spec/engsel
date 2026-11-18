@@ -1,5 +1,5 @@
 import { generateText } from "ai";
-import { getEngselModel } from "@/lib/ai/model";
+import { geminiProviderOptions, getEngselModel, hasGeminiKey } from "@/lib/ai/model";
 import { PASSAGE_IMAGE_MAX_BYTES, passageImageMediaType } from "@/lib/passage/image";
 
 export const maxDuration = 60;
@@ -35,11 +35,11 @@ export async function POST(request: Request) {
     return Response.json({ error: "이미지는 8MB 이하로 올려 주세요." }, { status: 400 });
   }
 
-  if (!process.env.OPENAI_API_KEY) {
+  if (!hasGeminiKey()) {
     return Response.json(
       {
         error:
-          "OPENAI_API_KEY가 없어 이미지를 읽을 수 없습니다. engsel/.env.local에 키를 넣은 뒤 개발 서버를 다시 시작해 주세요.",
+          "GEMINI_API_KEY가 없어 이미지를 읽을 수 없습니다. 프로젝트 폴더의 .env를 확인한 뒤 개발 서버를 다시 시작해 주세요.",
       },
       { status: 500 },
     );
@@ -49,6 +49,7 @@ export async function POST(request: Request) {
     const bytes = new Uint8Array(await image.arrayBuffer());
     const { text } = await generateText({
       model: getEngselModel(),
+      providerOptions: geminiProviderOptions,
       messages: [
         {
           role: "user",

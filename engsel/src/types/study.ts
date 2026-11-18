@@ -45,6 +45,7 @@ export type Passage = {
   body: string;
   createdAt: string;
   categoryId: StudyCategoryId;
+  imageName?: string;
 };
 
 export type CategoryStudy = {
@@ -62,4 +63,33 @@ export type DDay = {
 export type StudyPlan = {
   examDate: string;
   dailyRange: string;
+};
+
+export type PlanVolume = {
+  categoryId: StudyCategoryId;
+  total: number;
+  completed: number;
+};
+
+export type PlanTaskKind = "study" | "review";
+
+export type PlanTask = {
+  id: string;
+  title: string;
+  done: boolean;
+  createdOn: string;
+  categoryId: StudyCategoryId;
+  kind: PlanTaskKind;
+  href: string;
+  auto: boolean;
+  sourceId: string | null;
+  reviewStep: number;
+};
+
+export type LearningPlan = {
+  examLabel: string;
+  examDate: string | null;
+  volumes: PlanVolume[];
+  weekdays: number[];
+  tasks: PlanTask[];
 };

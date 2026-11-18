@@ -1,6 +1,6 @@
 import { generateText } from "ai";
 import { z } from "zod";
-import { getEngselModel } from "@/lib/ai/model";
+import { geminiProviderOptions, getEngselModel, hasGeminiKey } from "@/lib/ai/model";
 
 export const maxDuration = 60;
 
@@ -41,11 +41,11 @@ export async function POST(request: Request) {
     return Response.json({ error: "질문 내용을 확인해 주세요." }, { status: 400 });
   }
 
-  if (!process.env.OPENAI_API_KEY) {
+  if (!hasGeminiKey()) {
     return Response.json(
       {
         error:
-          "OPENAI_API_KEY가 없어 도우미가 답할 수 없습니다. engsel/.env.local에 키를 넣은 뒤 개발 서버를 다시 시작해 주세요.",
+          "GEMINI_API_KEY가 없어 도우미가 답할 수 없습니다. 프로젝트 폴더의 .env를 확인해 주세요.",
       },
       { status: 500 },
     );
@@ -59,6 +59,7 @@ export async function POST(request: Request) {
   try {
     const { text } = await generateText({
       model: getEngselModel(),
+      providerOptions: geminiProviderOptions,
       system: `${SYSTEM_PROMPT}${passageNote}`,
       messages: parsed.data.messages,
     });

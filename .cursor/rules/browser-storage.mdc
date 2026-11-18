@@ -1,0 +1,16 @@
+---
+description: 사용자 본문·표시·이미지는 읽기만 하고, 시험 데이터는 별도 키나 빈 프로필에만 둔다
+alwaysApply: true
+---
+
+# 브라우저 저장소는 읽기만
+
+실제 브라우저의 아래 저장소는 읽기만 한다. `setItem`, `removeItem`, `clear`, IndexedDB `put`/`delete`/`clear`로 바꾸지 않는다.
+
+- localStorage `engsel.passages`
+- localStorage `engsel.passage-marks`
+- IndexedDB `engsel-images` (object store `images` 포함)
+
+시험용 본문이 필요하면 기존 목록을 교체하지 않는다. 별도 키(예: `engsel.passages.test`)에만 넣거나, 저장소가 비어 있는 브라우저 프로필에서만 넣는다.
+
+확인 전에 위 키의 원문을 그대로 읽어 둔다. 확인이 끝난 뒤 테스트 데이터를 지우더라도, 그 전에 읽어 둔 원래 목록을 그대로 되돌린다. 되돌리기 전에는 테스트 데이터를 지우지 않는다.

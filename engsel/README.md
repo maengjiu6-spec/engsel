@@ -10,4 +10,4 @@ npm run dev
 
 브라우저에서 [http://localhost:3000](http://localhost:3000)을 엽니다.
 
-AI 기능을 연결할 때는 `.env.example`을 `.env.local`로 복사한 뒤 `OPENAI_API_KEY`를 넣습니다.
+이미지 인식과 도우미는 저장소 루트 `.env`의 `GEMINI_API_KEY`를 사용합니다. 모델은 기본값 `gemini-3.5-flash-lite`이며, 바꾸려면 `GEMINI_MODEL`을 지정합니다.

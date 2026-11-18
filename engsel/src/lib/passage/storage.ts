@@ -11,6 +11,7 @@ const passageSchema = z.object({
   body: z.string(),
   createdAt: z.string(),
   categoryId: z.enum(categoryIds).optional(),
+  imageName: z.string().optional(),
 });
 
 export function subscribePassages(onStoreChange: () => void) {
@@ -40,8 +41,12 @@ export function parsePassages(snapshot: string): Passage[] {
     const parsed = z.array(passageSchema).safeParse(JSON.parse(snapshot));
     if (!parsed.success) return [];
     return parsed.data.map((passage) => ({
-      ...passage,
+      id: passage.id,
+      title: passage.title,
+      body: passage.body,
+      createdAt: passage.createdAt,
       categoryId: (passage.categoryId ?? "textbook") as StudyCategoryId,
+      ...(passage.imageName?.trim() ? { imageName: passage.imageName.trim() } : {}),
     }));
   } catch {
     return [];
@@ -49,6 +54,12 @@ export function parsePassages(snapshot: string): Passage[] {
 }
 
 export function writePassages(passages: Passage[]) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(passages));
+  const stored = passages.map((passage) => {
+    if (passage.imageName?.trim()) return { ...passage, imageName: passage.imageName.trim() };
+    const rest = { ...passage };
+    delete rest.imageName;
+    return rest;
+  });
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(stored));
   window.dispatchEvent(new Event(CHANGE_EVENT));
 }

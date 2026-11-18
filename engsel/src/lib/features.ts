@@ -50,6 +50,10 @@ export const features = [
 
 export type Feature = (typeof features)[number];
 
+const hiddenNavHrefs = new Set<Feature["href"]>(["/plan", "/analytics", "/assistant"]);
+
+export const navFeatures = features.filter((feature) => !hiddenNavHrefs.has(feature.href));
+
 export function getFeature(href: Feature["href"]) {
   const feature = features.find((item) => item.href === href);
   if (!feature) {

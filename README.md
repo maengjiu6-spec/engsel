@@ -30,19 +30,16 @@ node engsel-web/server.js
 ```bash
 cd engsel
 npm install
-copy .env.example .env.local
 npm run dev
 ```
 
-`.env.local`에 `OPENAI_API_KEY`를 넣으면 AI 기능을 연결할 수 있습니다. 브라우저에서 [http://localhost:3000](http://localhost:3000)을 엽니다.
+이미지 인식과 도우미는 저장소 루트 `.env`의 `GEMINI_API_KEY`를 사용합니다. 브라우저에서 [http://localhost:3000](http://localhost:3000)을 엽니다.
 
 ## 환경 변수
 
 | 이름 | 사용처 | 설명 |
 | --- | --- | --- |
-| `GEMINI_API_KEY` | `engsel-web` | Gemini API 키 |
-| `GEMINI_MODEL` | `engsel-web` | 사용할 Gemini 모델. 비우면 `gemini-3.5-flash-lite` |
-| `OPENAI_API_KEY` | `engsel` | OpenAI API 키 |
-| `OPENAI_MODEL` | `engsel` | 사용할 OpenAI 모델. 비우면 `gpt-5.4-mini` |
+| `GEMINI_API_KEY` | `engsel-web`, `engsel` | Gemini API 키. Next.js 앱은 저장소 루트 `.env`를 읽습니다. |
+| `GEMINI_MODEL` | `engsel-web`, `engsel` | 사용할 Gemini 모델. 비우면 `gemini-3.5-flash-lite` |
 
 `.env`와 `.env.local`은 Git에 올리지 않습니다. 키 형식만 보려면 `.env.example`을 확인하세요.

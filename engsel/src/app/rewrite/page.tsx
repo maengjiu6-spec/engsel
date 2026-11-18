@@ -1,6 +1,10 @@
-import { FeatureScreen } from "@/components/layout/feature-screen";
-import { getFeature } from "@/lib/features";
+import type { Metadata } from "next";
+import { LegacyStudy } from "@/components/study/legacy-study";
+
+export const metadata: Metadata = {
+  title: "한국어 정리 · EngSel 엥셀",
+};
 
 export default function RewritePage() {
-  return <FeatureScreen feature={getFeature("/rewrite")} />;
+  return <LegacyStudy hash="/rewrite" title="한국어 정리" />;
 }

@@ -22,6 +22,23 @@ export function getDDay(examDate: string, now: Date): DDay | null {
   return { daysLeft, label: `D+${Math.abs(daysLeft)}` };
 }
 
+export function formatExamDate(examDate: string) {
+  const exam = parseLocalDate(examDate);
+  if (!exam) return "";
+  return new Intl.DateTimeFormat("ko-KR", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    weekday: "long",
+  }).format(exam);
+}
+
+export function dailyQuota(remaining: number, daysLeft: number) {
+  if (remaining <= 0) return 0;
+  if (daysLeft <= 0) return remaining;
+  return Math.ceil(remaining / daysLeft);
+}
+
 export function formatCountdown(examDate: string, now: Date) {
   const exam = parseLocalDate(examDate);
   if (!exam) return "시험일을 확인해 주세요.";
